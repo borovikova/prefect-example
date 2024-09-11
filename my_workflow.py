@@ -1,6 +1,9 @@
 import pandas as pd
 from prefect import flow, task
 
+from constants import FLOW_NAME
+
+
 @task
 def create_and_print_dataframe():
     df = pd.DataFrame({
@@ -9,6 +12,7 @@ def create_and_print_dataframe():
     })
     print(df)
 
-@flow
+@flow(name=FLOW_NAME) # this causes an error during deployment
+# @flow(name='test') # this works
 def pandas_flow():
     create_and_print_dataframe()
